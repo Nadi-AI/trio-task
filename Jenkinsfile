@@ -26,46 +26,46 @@ pipeline {
                 '''
             }
         }
-        stage('Deploy Containers to AppServ') {
-            environment {
-                MYSQL_ROOT_PASSWORD = credentials ${MYSQL_ROOT_PASSWORD}
-            }
-            steps {
-                sh '''
-                ssh 10.154.0.30 << EOF
-                docker pull scribral/trio-task-db
-                docker pull scribral/trio-task-app
-                docker network inspect trio-network && sleep 1 || docker network create trio-network
-                docker volume inspect trio-network && sleep 1 || docker volume create trio-network
-                docker stop mysql && (docker rm mysql || (docker rm mysql && sleep 1 || sleep 1)                    docker rm mysql
-                docker stop flask-app && (docker rm flask-app || (docker rm flask-app && sleep 1 || sleep 1)
-                docker stop nginx && (docker rm nginx || (docker rm nginx && sleep 1 || sleep 1)
-                docker run -d -e MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD} -v trio:/var/lib/mysql --nework trio --name mysql scribral/trio-task-db
-                docker run -d -e MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD} --nework trio --name flask-app scribral/trio-task-app
-                docker run -d -e  --nework trio --name flask-app scribral/trio-task-app
-                '''
-            }
-        }
-        stage('Cleanup Jenkins') {
-            steps {
-            sh '''
-            docker rmi scribral/trio-task-db
-            docker rmi scribral/trio-task-db:${BUILD_NUMBER}
-            docker rmi scribral/trio-task-app
-            docker rmi scribral/trio-task-app:${BUILD_NUMBER}
-            docker rmi scribral/trio-task-rp
-            docker rmi scribral/trio-task-rp:${BUILD_NUMBER}
-            '''
-            }
-        }
-        stage('or this') {
-            steps {
-            sh '''
-            docker build -t nginx-app .
-            docker run -d -p 80:80 nginx-app
-            '''
-            }
-        }
+        // stage('Deploy Containers to AppServ') {
+        //     environment {
+        //         MYSQL_ROOT_PASSWORD = credentials ${MYSQL_ROOT_PASSWORD}
+        //     }
+        //     steps {
+        //         sh '''
+        //         ssh 10.154.0.30 << EOF
+        //         docker pull scribral/trio-task-db
+        //         docker pull scribral/trio-task-app
+        //         docker network inspect trio-network && sleep 1 || docker network create trio-network
+        //         docker volume inspect trio-network && sleep 1 || docker volume create trio-network
+        //         docker stop mysql && (docker rm mysql || (docker rm mysql && sleep 1 || sleep 1)                    docker rm mysql
+        //         docker stop flask-app && (docker rm flask-app || (docker rm flask-app && sleep 1 || sleep 1)
+        //         docker stop nginx && (docker rm nginx || (docker rm nginx && sleep 1 || sleep 1)
+        //         docker run -d -e MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD} -v trio:/var/lib/mysql --nework trio --name mysql scribral/trio-task-db
+        //         docker run -d -e MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD} --nework trio --name flask-app scribral/trio-task-app
+        //         docker run -d -e  --nework trio --name flask-app scribral/trio-task-app
+        //         '''
+        //     }
+        // }
+        // stage('Cleanup Jenkins') {
+        //     steps {
+        //     sh '''
+        //     docker rmi scribral/trio-task-db
+        //     docker rmi scribral/trio-task-db:${BUILD_NUMBER}
+        //     docker rmi scribral/trio-task-app
+        //     docker rmi scribral/trio-task-app:${BUILD_NUMBER}
+        //     docker rmi scribral/trio-task-rp
+        //     docker rmi scribral/trio-task-rp:${BUILD_NUMBER}
+        //     '''
+        //     }
+        // }
+        // stage('or this') {
+        //     steps {
+        //     sh '''
+        //     docker build -t nginx-app .
+        //     docker run -d -p 80:80 nginx-app
+        //     '''
+        //     }
+        // }
                 stage('nor that') {
             steps {
             sh '''
