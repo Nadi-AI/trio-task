@@ -18,21 +18,21 @@ pipeline {
         stage('Flask-app triggers') {
             steps {
                 sh '''
-                docker build -t flask-app
+                docker build -t flask-app .
                 '''
             }
         }
         stage('Database triggers') {
             steps {
             sh '''
-            docker build -t mysql
+            docker build -t mysql .
             '''
             }
         }
         stage('NGINX tings') {
             steps {
             sh '''
-            docker build -t nginx-app
+            docker build -t nginx-app .
             docker run -d -p 80:80 nginx-app
             '''
             }
