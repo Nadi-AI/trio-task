@@ -15,7 +15,7 @@ pipeline {
                 '''
             }
         }
-        stage('Flask-app triggers') {
+        stage('Rename') {
             steps {
                 sh '''
                 echo "try to run the hello file - or not. whatever"
