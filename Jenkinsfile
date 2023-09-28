@@ -18,8 +18,7 @@ pipeline {
         stage('Flask-app triggers') {
             steps {
                 sh '''
-                echo "try to run the hello file"
-                cat ./hello.txt
+                echo "try to run the hello file - or not. whatever"
                 '''
             }
         }
