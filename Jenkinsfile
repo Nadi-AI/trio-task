@@ -6,11 +6,11 @@ pipeline {
                 sh '''
 
                 docker build -t scribral/trio-task-db:latest ./db
-                docker build -t scribral/trio-task-db:${ BUILD_NUMBER} ./db
+                docker build -t scribral/trio-task-db:${BUILD_NUMBER} ./db
                 docker build -t scribral/trio-task-app:latest ./flask-app
-                docker build -t scribral/trio-task-app:${ BUILD_NUMBER} ./flask-app
-                docker build -t scribral/trio-app:latest ./flask-app
-                docker build -t scribral/trio-task-db:${ BUILD_NUMBER} ./db
+                docker build -t scribral/trio-task-app:${BUILD_NUMBER} ./flask-app
+                docker build -t scribral/trio-task-rp:latest ./nginx
+                docker build -t scribral/trio-task-rp:${BUILD_NUMBER} ./nginx
                 '''
             }
         }
