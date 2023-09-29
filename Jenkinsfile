@@ -40,7 +40,6 @@ pipeline {
             environment {
                 MYSQL_ROOT_PASSWORD = credentials('MYSQL_ROOT_PASSWORD')
             }
-            }
             steps {
                 sh '''
                 ssh 10.154.0.30 << EOF
@@ -66,21 +65,6 @@ pipeline {
             docker rmi scribral/trio-task-app:${BUILD_NUMBER}
             docker rmi scribral/trio-task-rp
             docker rmi scribral/trio-task-rp:${BUILD_NUMBER}
-            '''
-            }
-        }
-        stage('or this') {
-            steps {
-            sh '''
-            docker build -t nginx-app .
-            docker run -d -p 80:80 nginx-app
-            '''
-            }
-        }
-                stage('nor that') {
-            steps {
-            sh '''
-            Hostname
             '''
             }
         }
