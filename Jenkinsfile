@@ -4,7 +4,7 @@ pipeline {
         stage('Greeting') {
             steps {
                 sh '''
-                echo "Hello Jenkins is working"
+                echo "OHFFS"
                 '''
             }
         }
