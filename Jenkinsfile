@@ -45,14 +45,17 @@ pipeline {
                 ssh 10.154.0.30 << EOF
                 docker pull scribral/trio-task-db
                 docker pull scribral/trio-task-app
+                docker pull scribral/trio-task-rp
+
                 docker network inspect trio-network && sleep 1 || docker network create trio-network
-                docker volume inspect trio-network && sleep 1 || docker volume create trio-network
-                docker stop mysql && (docker rm mysql || (docker rm mysql && sleep 1 || sleep 1)                    docker rm mysql
-                docker stop flask-app && (docker rm flask-app || (docker rm flask-app && sleep 1 || sleep 1)
-                docker stop nginx && (docker rm nginx || (docker rm nginx && sleep 1 || sleep 1)
-                docker run -d -e MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD} -v trio:/var/lib/mysql --nework trio --name mysql scribral/trio-task-db
-                docker run -d -e MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD} --nework trio --name flask-app scribral/trio-task-app
-                docker run -d -e  --nework trio --name flask-app scribral/trio-task-app
+                docker volume inspect trio-network && sleep 1 || docker volume create trio-volume
+
+                docker stop mysql && (docker rm mysql) || (docker rm mysql && sleep 1 || sleep 1)
+                docker stop flask-app && (docker rm flask-app) || (docker rm flask-app && sleep 1 || sleep 1)
+                docker stop nginx && (docker rm nginx) || (docker rm nginx && sleep 1 || sleep 1)
+                docker run -d -e MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD} -v trio-volume:/var/lib/mysql --nework trio-network --name mysql scribral/trio-task-db
+                docker run -d -e MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD} --nework trio-network --name flask-app scribral/trio-task-app
+                docker run -d -e  --nework trio-network --name flask-app scribral/trio-task-app
                 EOF
                 '''
             }
