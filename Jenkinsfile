@@ -53,9 +53,11 @@ pipeline {
                 docker stop mysql && (docker rm mysql) || (docker rm mysql && sleep 1 || sleep 1)
                 docker stop flask-app && (docker rm flask-app) || (docker rm flask-app && sleep 1 || sleep 1)
                 docker stop nginx && (docker rm nginx) || (docker rm nginx && sleep 1 || sleep 1)
+
                 docker run -d -e MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD} -v trio-volume:/var/lib/mysql --network trio-network --name mysql scribral/trio-task-db
                 docker run -d -e MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD} --network trio-network --name flask-app scribral/trio-task-app
-                docker run -d -e  --network trio-network --name flask-app scribral/trio-task-app
+                docker run -d -p 80:80 --network trio-network --name nginx scribral/trio-task-rp
+
                 EOF
                 '''
             }
