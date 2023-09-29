@@ -53,6 +53,7 @@ pipeline {
                 docker run -d -e MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD} -v trio:/var/lib/mysql --nework trio --name mysql scribral/trio-task-db
                 docker run -d -e MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD} --nework trio --name flask-app scribral/trio-task-app
                 docker run -d -e  --nework trio --name flask-app scribral/trio-task-app
+                EOF
                 '''
             }
         }
