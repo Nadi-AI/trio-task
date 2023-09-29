@@ -17,12 +17,12 @@ pipeline {
         stage('Push Images to DH') {
             steps {
                 sh '''
-               docker push scribral/trio-task-db
-               docker push scribral/trio-task-db:${BUILD_NUMBER}
-               docker push scribral/trio-task-app
-               docker push scribral/trio-task-app:${BUILD_NUMBER}
-               docker push scribral/trio-task-rp
-               docker push scribral/trio-task-rp:${BUILD_NUMBER}
+            //    docker push scribral/trio-task-db
+            //    docker push scribral/trio-task-db:${BUILD_NUMBER}
+            //    docker push scribral/trio-task-app
+            //    docker push scribral/trio-task-app:${BUILD_NUMBER}
+            //    docker push scribral/trio-task-rp
+            //    docker push scribral/trio-task-rp:${BUILD_NUMBER}
                 '''
             }
         }
