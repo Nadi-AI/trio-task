@@ -38,7 +38,8 @@ pipeline {
         }
         stage('Deploy Containers to AppServ') {
             environment {
-                MYSQL_ROOT_PASSWORD = credentials ${MYSQL_ROOT_PASSWORD}
+                MYSQL_ROOT_PASSWORD = credentials('MYSQL_ROOT_PASSWORD')
+            }
             }
             steps {
                 sh '''
